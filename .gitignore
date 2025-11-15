@@ -1,0 +1,7 @@
+/target/
+/**/target/
+*.log
+/.idea/
+/.vscode/
+/frontend/node_modules/
+/frontend/.next/
