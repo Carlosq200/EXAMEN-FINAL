@@ -12,9 +12,9 @@
 
     <groupId>com.multipedidos</groupId>
     <artifactId>componente-b</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
     <name>componente-b</name>
+    <description>Microservicio B - Proveedores y Facturas (dev con H2, prod con PostgreSQL)</description>
 
     <properties>
         <java.version>17</java.version>
@@ -32,17 +32,27 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!-- Driver PostgreSQL (infra real) -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
 
+        <!-- H2 para desarrollo -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- OpenAPI / Swagger -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
 
+        <!-- Librería de negocio compartida -->
         <dependency>
             <groupId>com.multipedidos</groupId>
             <artifactId>componente-c</artifactId>
@@ -52,13 +62,9 @@
 
     <build>
         <plugins>
-            <!-- Forzar la clase principal de este microservicio -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.multipedidos.b.ComponenteBApplication</mainClass>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -74,7 +80,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <apiDocsUrl>http://localhost:8081/v3/api-docs</apiDocsUrl>
+                    <!-- OJO: ahora en 8082 -->
+                    <apiDocsUrl>http://localhost:8082/v3/api-docs</apiDocsUrl>
                     <outputFileName>openapiB.json</outputFileName>
                     <outputDir>${project.basedir}/openapi</outputDir>
                 </configuration>
