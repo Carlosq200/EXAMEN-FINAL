@@ -1,0 +1,86 @@
+EXAMEN FINAL - Multipedidos (microservicios + frontend)
+
+====================
+1. Requisitos
+====================
+- Java 17
+- Maven 3.x
+- Node.js 18+ y npm
+- Git
+
+====================
+2. Clonar el proyecto
+====================
+git clone https://github.com/Carlosq200/EXAMEN-FINAL.git
+cd EXAMEN-FINAL
+
+La estructura principal es:
+- componente-a  -> Microservicio A (clientes y pedidos)
+- componente-b  -> Microservicio B (proveedores y facturas)
+- componente-c  -> Librería compartida (modelo de dominio)
+- frontend      -> Frontend en Next.js
+
+====================
+3. Arrancar los microservicios
+====================
+
+3.1. Componente A (puerto 8080)
+-------------------------------
+cd componente-a
+mvn spring-boot:run
+
+Endpoints principales:
+- http://localhost:8080/clientes
+- http://localhost:8080/pedidos
+
+Pruebas rápidas (curl):
+- curl http://localhost:8080/clientes
+- curl http://localhost:8080/pedidos
+
+
+3.2. Componente B (puerto 8082)
+-------------------------------
+En una consola nueva:
+
+cd componente-b
+mvn spring-boot:run
+
+Endpoints principales:
+- http://localhost:8082/proveedores
+- http://localhost:8082/facturas
+
+Pruebas rápidas (curl):
+- curl http://localhost:8082/proveedores
+- curl http://localhost:8082/facturas
+
+
+====================
+4. Arrancar el frontend (Next.js)
+====================
+
+En otra consola nueva:
+
+cd frontend
+npm install        (solo la primera vez)
+npm run dev
+
+Por defecto levanta en:
+- http://localhost:3000
+
+Si el puerto 3000 está ocupado, Next.js usará otro (3001, 3002, etc.).
+En la consola de `npm run dev` se indica la URL exacta, por ejemplo:
+- Local: http://localhost:3001
+- Local: http://localhost:3002
+
+Desde esa URL se puede ver la página que consume:
+- Microservicio A (clientes y pedidos en 8080)
+- Microservicio B (proveedores y facturas en 8082)
+
+
+====================
+5. Parar los servicios
+====================
+- Para cada consola, pulsar CTRL + C.
+
+Opcional: matar todos los procesos Java (Spring Boot) en Windows:
+- taskkill /F /IM java.exe
